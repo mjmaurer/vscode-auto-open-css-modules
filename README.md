@@ -1,65 +1,22 @@
-# auto-open-css-modules README
+# Auto Open CSS Modules 
 
-This is the README for your extension "auto-open-css-modules". After writing up a brief description, we recommend including the following sections.
+VSCode extension that parses JS/TS files and opens any imported CSS modules (ES6). Can optionally be run automatically on JS/TS file open.
 
-## Features
+It is designed for [React-style](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/) ES6 CSS imports.
+This extension is not tested, but is a (easily?) grokable single file. Feel free to contribute!
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Settings Options
 
-For example if there is an image subfolder under your extension project workspace:
+This extension contributes the following variables to the [settings](https://code.visualstudio.com/docs/customization/userandworkspace).
+All boolean options default to false:
 
-\!\[feature X\]\(images/feature-x.png\)
+- `auto-open-css-modules.manualMode`: Boolean. If true, don't run open command automatically on JS/TS file open.
+- `auto-open-css-modules.focusOnCss`: Boolean. If true, focus on CSS file when opened.
+- `auto-open-css-modules.openAsPreview`: Boolean. If true, open the matched files in preview mode. This has the benefit of decluttering the side editor, but only the last imported file will be previewed.
+- `auto-open-css-modules.viewColumn` - Specifies where the CSS files should open. See the [VSCode API's ViewColumn](https://code.visualstudio.com/api/references/vscode-api#ViewColumn) for valid values (`One` instead of `1`). Default is `Beside`.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Commands:
 
-## Requirements
+This extension contributes the following commands to the Command palette.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- `Open Imported CSS Modules` (auto-open-css-modules.openCssModules): Parse the currently focused JS/TS file and open any imported CSS files. 
