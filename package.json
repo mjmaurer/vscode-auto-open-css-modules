@@ -22,7 +22,7 @@
     ],
     "icon": "icon.png",
     "activationEvents": [
-        "onCommand:auto-open-css-modules.helloWorld",
+        "onCommand:auto-open-css-modules.openCssModules",
         "onLanguage:javascript",
         "onLanguage:javascriptreact",
         "onLanguage:typescript",
@@ -37,6 +37,16 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Disable auto opening any files. All commands still work."
+                },
+                "auto-open-css-modules.viewColumn": {
+                    "type": "string",
+                    "default": "Beside",
+                    "markdownDescription": "Specifies where the CSS should open. See the [VSCode API's ViewColumn](https://code.visualstudio.com/api/references/vscode-api#ViewColumn) for valid values (`One` instead of `1`)."
+                },
+                "auto-open-css-modules.focusOnCss": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "If true, move focus to CSS when opening."
                 },
                 "auto-open-css-modules.openAsPreview": {
                     "type": "boolean",

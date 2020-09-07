@@ -4,9 +4,15 @@ const config = workspace.getConfiguration();
 
 const isManualMode = !!config.get("auto-open-css-modules.manualMode");
 const openAsPreview = !!config.get("auto-open-css-modules.openAsPreview");
+const focusOnCss = !!config.get("auto-open-css-modules.focusOnCss");
+
+const whereToOpenString: keyof typeof ViewColumn = (config.get<string>("auto-open-css-modules.viewColumn") || "Beside") as keyof typeof ViewColumn;
+const whereToOpen: ViewColumn = ViewColumn[whereToOpenString] || ViewColumn.Beside;
 
 export function activate(context: ExtensionContext): void {
 
+    // Cache of last opened files.
+    // Used to avoid auto-opening just closed files.
     const lastOpenedCssFiles: Set<string> = new Set();
 
     function shouldProcess (doc: TextDocument) {
@@ -24,9 +30,9 @@ export function activate(context: ExtensionContext): void {
             return;
         }
         const textDocumentShowOptions: TextDocumentShowOptions = {
-            preserveFocus: true,
+            preserveFocus: !focusOnCss,
             preview: openAsPreview,
-            viewColumn: ViewColumn.Beside
+            viewColumn: whereToOpen
         };
         const editorText = document.getText();
         const regex = /import(?:["'\s]*([\w*{}\n\r\t, ]+)from\s*)?["'\s]+(.*[@\w_-]+(\.css|\.scss|\.sass))["'\s].*;$/gm;
@@ -37,7 +43,6 @@ export function activate(context: ExtensionContext): void {
         ) {
             if (importMatch[2]) {
                 const cssPath = importMatch[2];
-                // If falsy, user probably just closed the auto opened files
                 if (!lastOpenedCssFiles.has(cssPath)) {
                     newCssFiles.push(cssPath);
                     window.showTextDocument(Uri.joinPath(document.uri, "..", cssPath), textDocumentShowOptions)
@@ -55,7 +60,7 @@ export function activate(context: ExtensionContext): void {
         'auto-open-css-modules.openCssModules',
         function (editor) {
             if (editor) {
-                // force clear cache
+                lastOpenedCssFiles.clear(); // force clear cache for manual run
                 openAllCssImports(editor.document);
             }
         }
