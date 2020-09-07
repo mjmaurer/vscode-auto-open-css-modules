@@ -5,6 +5,8 @@ VSCode extension that parses JS/TS files and opens any imported CSS modules (ES6
 It is designed for [React-style](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/) ES6 CSS imports.
 This extension is not tested, but is a (easily?) grokable single file. Feel free to contribute!
 
+[Marketplace Link](https://marketplace.visualstudio.com/items?itemName=mjmaurer.auto-open-css-modules)
+
 ## Settings Options
 
 This extension contributes the following variables to the [settings](https://code.visualstudio.com/docs/customization/userandworkspace).
