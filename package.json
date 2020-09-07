@@ -3,6 +3,7 @@
     "displayName": "Auto Open CSS Modules",
     "description": "Auto open CSS modules imported in a JS/TS file",
     "version": "1.0.0",
+    "publisher": "mjmaurer",
     "repository": {
         "type": "git",
         "url": "https://github.com/mjmaurer/vscode-auto-open-css-modules.git"
