@@ -2,7 +2,7 @@
     "name": "auto-open-css-modules",
     "displayName": "Auto Open CSS Modules",
     "description": "Auto open CSS modules imported in a JS/TS file",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "publisher": "mjmaurer",
     "repository": {
         "type": "git",
