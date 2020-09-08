@@ -35,23 +35,21 @@ export function activate(context: ExtensionContext): void {
             viewColumn: whereToOpen
         };
         const editorText = document.getText();
-        const regex = /import(?:["'\s]*([\w*{}\n\r\t, ]+)from\s*)?["'\s]+(.*[@\w_-]+(\.css|\.scss|\.sass))["'\s].*;$/gm;
+        const importRegex = /import(?:["'\s]*([\w*{}\n\r\t, ]+)from\s*)?["'\s]+(.*[@\w_-]+(\.css|\.scss|\.sass))["'\s].*;$/gm;
         let importMatch: RegExpExecArray | null;
-        const newCssFiles: Array<string> = [];
+        const newlyOpenedCssFiles: Array<string> = [];
         while (
-            (importMatch = regex.exec(editorText)) !== null
+            (importMatch = importRegex.exec(editorText)) !== null
         ) {
-            if (importMatch[2]) {
-                const cssPath = importMatch[2];
-                if (!lastOpenedCssFiles.has(cssPath)) {
-                    newCssFiles.push(cssPath);
-                    window.showTextDocument(Uri.joinPath(document.uri, "..", cssPath), textDocumentShowOptions)
-                        .then(() => {}, (e) => {console.error(e);});
-                }
+            const cssPath = importMatch[2];
+            if (cssPath && !lastOpenedCssFiles.has(cssPath)) {
+                newlyOpenedCssFiles.push(cssPath);
+                window.showTextDocument(Uri.joinPath(document.uri, "..", cssPath), textDocumentShowOptions)
+                    .then(() => {}, (e) => {console.error(e);});
             }
         }
         lastOpenedCssFiles.clear();
-        newCssFiles.forEach((file) => {
+        newlyOpenedCssFiles.forEach((file) => {
             lastOpenedCssFiles.add(file);
         });
     }
